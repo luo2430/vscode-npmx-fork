@@ -12,10 +12,10 @@ export class CatalogDefinitionProvider implements DefinitionProvider {
       return
 
     const ctx = await getWorkspaceContext(document.uri)
-    if (!ctx?.workspaceFileUri)
+    if (!ctx?.workspaceFilePath)
       return
 
-    const dependencies = (await ctx.loadWorkspaceFileInfo(ctx.workspaceFileUri))?.dependencies
+    const dependencies = (await ctx.loadWorkspaceFileInfo(ctx.workspaceFilePath))?.dependencies
     if (!dependencies)
       return
 
@@ -28,10 +28,11 @@ export class CatalogDefinitionProvider implements DefinitionProvider {
     if (!target)
       return
 
-    const workspaceDocument = await workspace.openTextDocument(ctx.workspaceFileUri)
+    const workspaceFileUri = document.uri.with({ path: ctx.workspaceFilePath })
+    const workspaceDocument = await workspace.openTextDocument(workspaceFileUri)
 
     return new Location(
-      ctx.workspaceFileUri,
+      workspaceFileUri,
       offsetRangeToRange(workspaceDocument, target.specRange),
     )
   }
