@@ -47,8 +47,6 @@ export function launch(serverPath: string) {
             return
 
           const contents = hover.contents.map((c) => {
-            if (c instanceof MarkdownString)
-              return c
             if (typeof c === 'string')
               return transformMarkdownString(c)
             if ('value' in c)
