@@ -11,11 +11,11 @@ catalogs:
     '@types/semver': ^7.7.1
     '@typescript/native-preview': 7.0.0-dev.20260309.1
     '@vida0905/eslint-config': ^2.11.0
-    eslint: ^10.0.3
+    eslint: ^10.1.0
     husky: ^9.1.7
     nano-staged: ^0.9.0
-    tsdown: ^0.21.2
-    vite: ^8.0.0
+    tsdown: ^0.21.6
+    vite: ^8.0.3
     vscode-ext-gen: ^1.6.0
   inline:
     fast-npm-meta: ^1.4.2
@@ -36,6 +36,6 @@ catalogs:
   test:
     jest-mock-vscode: ^4.12.0
     module-replacements: ^2.11.0
-    msw: ^2.12.10
+    msw: ^2.12.14
     vite-tsconfig-paths: ^6.1.1
-    vitest: ^4.1.0
+    vitest: ^4.1.2
