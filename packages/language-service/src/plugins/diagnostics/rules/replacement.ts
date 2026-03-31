@@ -1,9 +1,8 @@
+import type { DiagnosticSeverity } from '@volar/language-service'
 import type { ModuleReplacement } from 'module-replacements'
-import type { DiagnosticRule } from '..'
-import { config } from '#state'
+import type { DiagnosticRule } from '../types'
 import { getReplacement } from 'npmx-language-core/api/replacement'
 import { checkIgnored } from 'npmx-language-core/utils'
-import { DiagnosticSeverity, Uri } from 'vscode'
 
 function getMdnUrl(path: string): string {
   return `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/${path}`
@@ -27,7 +26,7 @@ function getReplacementInfo(replacement: ModuleReplacement) {
       }
     case 'simple':
       return {
-        message: `has been flagged as redundant by the community, with the advice:\n${replacement.replacement}.`,
+        message: `has been flagged as redundant by the community, with advice:\n${replacement.replacement}.`,
       }
     case 'documented':
       return {
@@ -41,8 +40,8 @@ function getReplacementInfo(replacement: ModuleReplacement) {
   }
 }
 
-export const checkReplacement: DiagnosticRule = async ({ dep: { nameRange, resolvedName } }) => {
-  if (checkIgnored({ ignoreList: config.ignore.replacement, name: resolvedName }))
+export const checkReplacement: DiagnosticRule = async ({ dep: { nameRange, resolvedName } }, ignoreList) => {
+  if (checkIgnored({ ignoreList, name: resolvedName }))
     return
 
   const replacement = await getReplacement(resolvedName)
@@ -54,7 +53,8 @@ export const checkReplacement: DiagnosticRule = async ({ dep: { nameRange, resol
   return {
     range: nameRange,
     message: `"${resolvedName}" ${message}`,
-    severity: DiagnosticSeverity.Warning,
-    code: link ? { value: 'replacement', target: Uri.parse(link) } : 'replacement',
+    severity: 2 satisfies typeof DiagnosticSeverity.Warning,
+    code: 'replacement',
+    ...(link && { codeDescription: { href: link } }),
   }
 }
