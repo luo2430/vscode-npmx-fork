@@ -8,7 +8,7 @@ import intersects from 'semver/ranges/intersects'
 import subset from 'semver/ranges/subset'
 import { URI } from 'vscode-uri'
 
-export interface EngineMismatch {
+interface EngineMismatch {
   engine: string
   packageRange: string
   dependencyRange: string

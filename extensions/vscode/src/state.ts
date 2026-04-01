@@ -1,7 +1,4 @@
-import type { NestedScopedConfigs } from 'npmx-shared/meta'
-import { displayName, scopedConfigs } from 'npmx-shared/meta'
-import { defineConfig, defineLogger } from 'reactive-vscode'
-
-export const config = defineConfig<NestedScopedConfigs>(scopedConfigs.scope)
+import { displayName } from 'npmx-shared/meta'
+import { defineLogger } from 'reactive-vscode'
 
 export const logger = defineLogger(displayName)

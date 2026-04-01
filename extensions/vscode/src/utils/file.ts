@@ -2,11 +2,6 @@ import type { PackageManifestInfo } from 'npmx-language-core/types'
 import type { Uri } from 'vscode'
 import { workspace } from 'vscode'
 
-export async function getDocumentText(uri: Uri) {
-  const document = await workspace.openTextDocument(uri)
-  return document.getText()
-}
-
 /**
  * Reads and parses a `package.json` file.
  *

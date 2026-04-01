@@ -1,10 +1,12 @@
 import type { DocumentFilter } from '@volar/vscode'
-import { SUPPORTED_DOCUMENT_PATTERN } from '#utils/constants'
 import { middleware } from '@volar/vscode'
 import { LanguageClient, TransportKind } from '@volar/vscode/node'
+import { PACKAGE_JSON_BASENAME, PNPM_WORKSPACE_BASENAME, YARN_WORKSPACE_BASENAME } from 'npmx-language-core/constants'
 import { displayName, extensionId } from 'npmx-shared/meta'
 import { Hover, MarkdownString } from 'vscode'
 import { registerRequests } from './request'
+
+const SUPPORTED_DOCUMENT_PATTERN = `**/{${PACKAGE_JSON_BASENAME},${PNPM_WORKSPACE_BASENAME},${YARN_WORKSPACE_BASENAME}}`
 
 const SUPPORTED_LANGUAGES = [
   'javascript',
