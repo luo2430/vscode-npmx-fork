@@ -12,6 +12,10 @@
 | Package | Description |
 | ------- | ----------- |
 | [`extensions/vscode`](./extensions/vscode) | [VS Code extension](https://marketplace.visualstudio.com/items?itemName=npmx-dev.vscode-npmx) for npmx |
+| [`packages/shared`](./packages/shared) | Shared constants, types, and LSP protocol definitions |
+| [`packages/language-core`](./packages/language-core) | Core logic: extractors, API clients, workspace context |
+| [`packages/language-service`](./packages/language-service) | Volar language service plugins (hover, completion, diagnostics, etc.) |
+| [`packages/language-server`](./packages/language-server) | Volar language server |
 
 ## Features
 

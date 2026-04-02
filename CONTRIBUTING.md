@@ -82,46 +82,54 @@ This project is organized as a monorepo using pnpm workspaces:
 
 ```
 extensions/
-└── vscode/             # VS Code extension
-    ├── src/            # Extension source code
-    │   ├── api/        # API clients (package, replacement, vulnerability)
-    │   ├── commands/   # Command handlers (vscode API only, no reactive-vscode)
-    │   ├── composables/ # Composables (reactive-vscode hooks)
-    │   ├── core/       # Core logic
-    │   │   ├── extractors/ # Extractors (JSON, YAML)
-    │   │   └── workspace.ts # Workspace context resolution
-    │   ├── providers/  # Providers
-    │   │   ├── code-actions/ # Code action providers (quick fixes)
-    │   │   ├── completion-item/ # Completion providers (version autocomplete)
-    │   │   ├── diagnostics/ # Diagnostic providers
-    │   │   ├── document-link/ # Document link providers (package links)
-    │   │   └── hover/  # Hover providers
-    │   ├── types/      # TypeScript types
-    │   ├── utils/      # Utility functions
-    │   ├── index.ts    # Extension entry point
-    │   └── state.ts    # State management
-    ├── package.json
-    └── tsdown.config.ts
-shared/                 # Shared code across packages
-├── constants.ts
-├── meta.ts             # Auto-generated extension metadata
-└── types.ts
-playground/             # Playground for testing
-res/                    # Assets (e.g. marketplace icon)
-tests/                  # Tests
-├── __setup__/          # Test setup and utilities
-├── code-actions/       # Code action tests
-├── diagnostics/        # Diagnostic tests
-├── fixtures/           # Test fixtures (workspace scenarios)
-└── utils/              # Utility tests
+└── vscode/                  # VS Code extension (thin client)
+    ├── src/
+    │   ├── commands/        # Command handlers (vscode API only, no reactive-vscode)
+    │   ├── providers/       # VS Code provider registrations
+    │   ├── utils/           # Extension-specific utilities
+    │   ├── client.ts        # Language client setup
+    │   ├── index.ts         # Extension entry point
+    │   ├── request.ts       # Request handling
+    │   └── state.ts         # State management
+    └── tests/
+packages/
+├── shared/                  # Shared code across packages
+│   └── src/
+│       ├── commands.ts      # Command identifiers
+│       ├── constants.ts     # Shared constants
+│       ├── meta.ts          # Auto-generated extension metadata
+│       ├── protocol.ts      # LSP protocol definitions
+│       └── types.ts         # Shared types
+├── language-core/           # Core logic (extractors, API clients, workspace)
+│   └── src/
+│       ├── api/             # API clients (package, replacement, vulnerability)
+│       ├── extractors/      # File parsers (JSON, YAML)
+│       ├── utils/           # Core utilities (with colocated tests)
+│       ├── workspace.ts     # Workspace context resolution
+│       └── types.ts         # Core types
+├── language-service/        # Language service plugins (Volar)
+│   └── src/
+│       ├── plugins/         # Service plugins
+│       │   ├── diagnostics/ # Diagnostic rules (with colocated tests)
+│       │   ├── catalog.ts   # Catalog resolution
+│       │   ├── document-link.ts
+│       │   ├── hover.ts
+│       │   └── version-completion.ts
+│       └── utils/           # Service utilities (with colocated tests)
+└── language-server/         # Language server (Volar)
+    └── src/
+        ├── server.ts        # Server setup
+        └── workspace.ts     # Server workspace handling
+playground/                  # Playground for testing
+res/                         # Assets (e.g. marketplace icon)
 ```
 
 ### Key concepts
 
-- **Extractor** &ndash; Parses a supported file (`package.json`, `pnpm-workspace.yaml`, `.yarnrc.yml`) and extracts dependency information with AST ranges. Each file format has its own extractor in `extensions/vscode/src/core/extractors/`.
+- **Extractor** &ndash; Parses a supported file (`package.json`, `pnpm-workspace.yaml`, `.yarnrc.yml`) and extracts dependency information with AST ranges. Each file format has its own extractor in `packages/language-core/src/extractors/`.
 - **WorkspaceContext** &ndash; Holds per-workspace-folder state: detected package manager, resolved catalogs, and memoized dependency info. Created lazily and invalidated when workspace-level files change.
-- **ResolvedDependencyInfo** &ndash; A dependency with its protocol resolved (e.g., `catalog:` → actual version, `npm:alias@version` → underlying package). Providers consume resolved dependencies instead of raw AST data.
-- **Provider** &ndash; VS Code language feature (hover, completion, diagnostics, etc.) that operates on resolved dependencies.
+- **ResolvedDependencyInfo** &ndash; A dependency with its protocol resolved (e.g., `catalog:` → actual version, `npm:alias@version` → underlying package). Plugins consume resolved dependencies instead of raw AST data.
+- **Plugin** &ndash; A Volar language service plugin (hover, completion, diagnostics, etc.) in `packages/language-service/` that operates on resolved dependencies.
 
 ## Code style
 
