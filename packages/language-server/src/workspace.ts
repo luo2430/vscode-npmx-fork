@@ -4,7 +4,7 @@ import type { IWorkspaceState } from 'npmx-language-service/types'
 import type { GetPackageManagerRequest } from 'npmx-shared/protocol'
 import { access, readFile } from 'node:fs/promises'
 import { RequestType } from '@volar/language-server'
-import { PACKAGE_JSON_BASENAME } from 'npmx-language-core/constants'
+import { DEPENDENCY_FILE_GLOB, PACKAGE_JSON_BASENAME } from 'npmx-language-core/constants'
 import { isDependencyFile, isPackageManifest, isWorkspaceFile } from 'npmx-language-core/utils'
 import { WorkspaceContext } from 'npmx-language-core/workspace'
 import { GET_PACKAGE_MANAGER_METHOD } from 'npmx-shared/protocol'
@@ -61,6 +61,10 @@ export class WorkspaceState implements IWorkspaceState {
   }
 
   #registerEventListeners() {
+    this.#server.onInitialized(() => {
+      this.#server.fileWatcher.watchFiles([DEPENDENCY_FILE_GLOB])
+    })
+
     this.#server.workspaceFolders.onDidChange(({ removed }) => {
       for (const folder of removed) {
         const folderUri = URI.parse(folder.uri)
