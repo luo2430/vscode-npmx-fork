@@ -113,6 +113,9 @@ export class WorkspaceState implements IWorkspaceState {
     {
       name: 'workspace-context',
       getKey: (folderUri) => folderUri.path,
+      maxAge: -1,
+      swr: false,
+      staleMaxAge: 0,
     },
   )
 
