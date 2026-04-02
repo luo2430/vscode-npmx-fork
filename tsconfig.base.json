@@ -1,14 +1,11 @@
 {
   "compilerOptions": {
     "composite": true,
-    "target": "ESNext",
     "lib": ["ESNext"],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "module": "preserve",
     "resolveJsonModule": true,
     "types": ["node"],
     "noFallthroughCasesInSwitch": true,
-    "noImplicitThis": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
