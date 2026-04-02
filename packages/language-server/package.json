@@ -15,7 +15,7 @@
   },
   "main": "./dist/index.cjs",
   "bin": {
-    "npmx-language-server": "./bin/index.js"
+    "npmx-language-server": "./dist/index.cjs"
   },
   "files": [
     "bin/**/*",

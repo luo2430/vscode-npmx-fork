@@ -6,6 +6,7 @@ export default defineConfig({
   platform: 'node',
   exports: {
     packageJson: false,
+    bin: true,
   },
   format: 'cjs',
   checks: {

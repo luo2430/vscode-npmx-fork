@@ -13,7 +13,7 @@ import { logger } from './state'
 export const { activate, deactivate } = defineExtension((ctx) => {
   const volarLabs = createLabsInfo()
 
-  const serverPath = Uri.joinPath(ctx.extensionUri, './dist/server/bin/index.js').fsPath
+  const serverPath = Uri.joinPath(ctx.extensionUri, './dist/server/index.cjs').fsPath
   const { client } = launch(serverPath)
   volarLabs.addLanguageClient(client)
 
