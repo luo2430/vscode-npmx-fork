@@ -9,6 +9,9 @@ catalogs:
     '@types/node':
       specifier: ^25.6.0
       version: 25.6.0
+    '@types/path-browserify':
+      specifier: ^1.0.3
+      version: 1.0.3
     '@types/semver':
       specifier: ^7.7.1
       version: 7.7.1
@@ -49,9 +52,9 @@ catalogs:
     ofetch:
       specifier: ^2.0.0-alpha.3
       version: 2.0.0-alpha.3
-    pathe:
-      specifier: ^2.0.3
-      version: 2.0.3
+    path-browserify:
+      specifier: ^1.0.1
+      version: 1.0.1
     reactive-vscode:
       specifier: ^1.0.1
       version: 1.0.1
@@ -104,6 +107,9 @@ importers:
       '@types/node':
         specifier: catalog:dev
         version: 25.6.0
+      '@types/path-browserify':
+        specifier: catalog:dev
+        version: 1.0.3
       '@types/semver':
         specifier: catalog:dev
         version: 7.7.1
@@ -192,9 +198,9 @@ importers:
       module-replacements:
         specifier: catalog:test
         version: 2.11.0
-      pathe:
+      path-browserify:
         specifier: catalog:inline
-        version: 2.0.3
+        version: 1.0.1
       yaml:
         specifier: catalog:inline
         version: 2.8.3
@@ -694,6 +700,9 @@ packages:
 
   '@types/node@25.6.0':
     resolution: {integrity: sha512-+qIYRKdNYJwY3vRCZMdJbPLJAtGjQBudzZzdzwQYkEPQd+PJGixUL5QfvCLDaULoLv+RhT3LDkwEfKaAkgSmNQ==}
+
+  '@types/path-browserify@1.0.3':
+    resolution: {integrity: sha512-ZmHivEbNCBtAfcrFeBCiTjdIc2dey0l7oCGNGpSuRTy8jP6UVND7oUowlvDujBy8r2Hoa8bfFUOCiPWfmtkfxw==}
 
   '@types/semver@7.7.1':
     resolution: {integrity: sha512-FmgJfu+MOcQ370SD0ev7EI8TlCAfKYU+B4m5T3yXc1CiRN94g/SZPtsCkk506aUDtlMnFZvasDwHHUcZUEaYuA==}
@@ -2815,6 +2824,8 @@ snapshots:
   '@types/node@25.6.0':
     dependencies:
       undici-types: 7.19.2
+
+  '@types/path-browserify@1.0.3': {}
 
   '@types/semver@7.7.1': {}
 
