@@ -185,9 +185,6 @@ importers:
       ocache:
         specifier: catalog:inline
         version: 0.1.4
-      ofetch:
-        specifier: catalog:inline
-        version: 2.0.0-alpha.3
       semver:
         specifier: catalog:inline
         version: 7.8.0
@@ -201,6 +198,9 @@ importers:
       module-replacements:
         specifier: catalog:test
         version: 3.0.0-beta.7(patch_hash=8f7c0cb98f974db7ca81b2eb2ee331b456b2cb0f2ce92d5125a1d98abbd404ca)
+      ofetch:
+        specifier: catalog:inline
+        version: 2.0.0-alpha.3
       path-browserify:
         specifier: catalog:inline
         version: 1.0.1
